@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/library/themes/ppcoll/css" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" version="1">
+    <acl entries="0" version="1"/>
+    <resource type="BinaryResource" name="biblio.css" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="biblio.css" mimetype="text/css">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="default-style2.css" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="default-style2.css" mimetype="text/css">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="theme.css" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="theme.css" mimetype="text/css">
+        <acl entries="0" version="1"/>
+    </resource>
+</collection>

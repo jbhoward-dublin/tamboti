@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<code-table xml:id="role-short-code">
+    <code-table-name>role-short-code</code-table-name>
+    <tab-id>compact-a</tab-id>
+    <tab-id>compact-b-review</tab-id>
+    <tab-id>compact-b-xlink</tab-id>
+    <items>
+        <item>
+            <label>(none selected)</label>
+            <value/>
+        </item>
+        <item>
+            <label>artist</label>
+            <value>art</value>
+        </item>
+        <item>
+            <label>author</label>
+            <value>aut</value>
+        </item>
+        <item>
+            <label>commentator for written text</label>
+            <value>cwt</value>
+        </item>
+        <item>
+            <label>composer</label>
+            <value>cmp</value>
+        </item>
+        <item>
+            <label>compiler</label>
+            <value>com</value>
+            <labelSecondary>compiled by</labelSecondary>
+        </item>
+        <item>
+            <label>creator</label>
+            <value>cre</value>
+        </item>
+        <item>
+            <label>editor</label>
+            <labelSecondary>edited by</labelSecondary>
+            <value>edt</value>
+        </item>
+        <item>
+            <label>illustrator</label>
+            <value>ill</value>
+        </item>
+        <item>
+            <label>photographer</label>
+            <value>pht</value>
+        </item>
+        <item>
+            <label>reviewer</label>
+            <value>rev</value>
+        </item>
+        <item>
+            <label>translator</label>
+            <value>trl</value>
+            <labelSecondary>translated by</labelSecondary>
+        </item>
+    </items>
+</code-table>

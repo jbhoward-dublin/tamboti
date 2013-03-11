@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/library/themes/ppcoll/pages" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" version="1">
+    <acl entries="0" version="1"/>
+    <resource type="XMLResource" name="index.html" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="index.html" mimetype="text/html">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="test.html" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="test.html" mimetype="text/html">
+        <acl entries="0" version="1"/>
+    </resource>
+</collection>

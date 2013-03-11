@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mods="http://www.loc.gov/mods/v3" elementFormDefault="qualified" targetNamespace="http://www.loc.gov/mods/v3">
+    <xs:redefine schemaLocation="http://www.loc.gov/standards/mods/v3/mods-3-4.xsd">
+        <xs:complexType name="stringPlusSupplied">
+            <xs:simpleContent>
+                <xs:extension base="mods:stringPlusSupplied">
+                    <xs:attribute name="unit"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:redefine>
+</xs:schema>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/library/themes/ppcoll/images" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" version="1">
+    <acl entries="0" version="1"/>
+    <resource type="BinaryResource" name="ajax-loader.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="ajax-loader.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="app-icon.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="app-icon.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="arrow_in.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="arrow_in.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="arrow_out.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="arrow_out.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="arrow_refresh.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="arrow_refresh.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="cartographic.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="cartographic.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="closelabel.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="closelabel.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="cluster_logo.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="cluster_logo.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="cross.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="cross.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="delete.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="delete.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="disk.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="disk.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="disk_gew.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="disk_gew.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="file_pdf.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="file_pdf.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="folder_add.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="folder_add.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="folder_delete.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="folder_delete.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="folder_edit.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="folder_edit.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="folder_go.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="folder_go.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="group.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="group.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="logo.jpg" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="logo.jpg" mimetype="image/jpeg">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="logovjc.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="logovjc.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="minus.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="minus.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="mixed_material.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="mixed_material.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="moving_image.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="moving_image.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="nextlabel.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="nextlabel.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="notated_music.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="notated_music.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="page_add.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="page_add.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="page_edit.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="page_edit.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="plus.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="plus.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="powered.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="powered.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="prevlabel.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="prevlabel.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="script_code.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="script_code.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="search.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="search.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="shape_move_front.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="shape_move_front.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="software_multimedia.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="software_multimedia.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="sound_recording-musical.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="sound_recording-musical.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="sound_recording-nonmusical.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="sound_recording-nonmusical.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="sound_recording.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="sound_recording.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="still_image.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="still_image.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="tamboti.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="tamboti.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="text.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="text.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="three_dimensional_object.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="three_dimensional_object.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="tree.gif" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="tree.gif" mimetype="image/gif">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="user.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="user.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="user_edit.png" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="user_edit.png" mimetype="image/png">
+        <acl entries="0" version="1"/>
+    </resource>
+</collection>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meta xmlns="http://exist-db.org/xquery/repo" xmlns:repo="http://exist-db.org/xquery/repo">
+    <description>Tamboti Metadata Framework</description>
+    <author>Adam Retter</author>
+    <author>Dan McCreary</author>
+    <author>Dulip Withanage</author>
+    <author>Jens Østergaard Petersen</author>
+    <author>Wolfgang Meier</author>
+    <website>http://exist-db.org</website>
+    <license>GNU-LGPL</license>
+    <copyright>true</copyright>
+    <type>application</type>
+    <target>tamboti</target>
+    <permissions user="editor" password="editor" group="biblio.users" mode="0444"/>
+    <status>stable</status>
+    <prepare>pre-install.xql</prepare>
+    <finish>post-install.xql</finish>
+    <deployed>2013-03-10T05:34:51.659+01:00</deployed>
+</meta>

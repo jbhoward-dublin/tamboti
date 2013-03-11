@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/library/themes/ppcoll" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" version="1">
+    <acl entries="0" version="1"/>
+    <resource type="XMLResource" name="collection-tree.xml" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="collection-tree.xml" mimetype="application/xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="dialogs.xml" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="dialogs.xml" mimetype="application/xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="filters.xml" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="filters.xml" mimetype="application/xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="pagination.xml" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="pagination.xml" mimetype="application/xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="query.xml" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="query.xml" mimetype="application/xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="template.xml" owner="editor" group="biblio.users" mode="444" created="2013-02-05T12:37:52+01:00" modified="2013-02-05T12:37:52+01:00" filename="template.xml" mimetype="application/xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <subcollection name="css" filename="css"/>
+    <subcollection name="pages" filename="pages"/>
+    <subcollection name="images" filename="images"/>
+</collection>
