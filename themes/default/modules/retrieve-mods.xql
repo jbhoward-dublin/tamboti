@@ -28,7 +28,7 @@ declare option exist:serialize "media-type=text/xml";
 : @see http://www.xqueryfunctions.com/xq/functx_substring-before-last-match.html 
 :)
 declare function functx:substring-before-last-match($arg as xs:string, $regex as xs:string) as xs:string? {       
-   replace($arg,concat('^(.*)',$regex,'.*'),'$1')
+   replce($arg,concat('^(.*)',$regex,'.*'),'$1')
 } ;
  
 (:~
@@ -578,7 +578,7 @@ declare function retrieve-mods:format-detail-view($position as xs:string, $entry
 : @param $position the position of the record displayed with the search results (this parameter is not used)
 : @return an XHTML span.
 :)
-declare function retrieve-mods:format-list-view($position as xs:string, $entry as element(mods:mods), $collection-short as xs:string) as element(span) {
+declare function retrieve-mods:format-list-view($position as xs:string, $entry as element(), $collection-short as xs:string) as element(span) {
 	let $entry := mods-common:remove-parent-with-missing-required-node($entry)
 	let $global-transliteration := $entry/mods:extension/ext:transliterationOfResource/text()
 	let $global-language := $entry/mods:language[1]/mods:languageTerm[1]/text()
