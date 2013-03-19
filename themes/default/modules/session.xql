@@ -346,6 +346,7 @@ declare function bs:plain-list-view-table($item as node(), $currentPos as xs:int
     let $id := concat(document-uri(root($item)), '#', util:node-id($item))
     let $stored := session:get-attribute("personal-list")
     let $saved := exists($stored//*[@id = $id])
+    (:NB: This gives NEP 2013-03-16, but Wolfgang has a fix. :)
     let $titleField := ft:get-field($item/@uri, "Title")
     let $title := if ($titleField) then $titleField else replace($item/@uri, "^.*/([^/]+)$", "$1")
     let $clean := clean:cleanup($item)
@@ -441,7 +442,9 @@ declare function bs:toolbar($item as element(), $isWritable as xs:boolean, $id a
 
 declare function bs:get-icon-from-folder($size as xs:int, $collection as xs:string) {
     let $thumb := xmldb:get-child-resources($collection)[1]
+    let $log := util:log("DEBUG", ("##$thumb): ", $thumb))
     let $imgLink := concat(substring-after($collection, "/db"), "/", $thumb)
+    let $log := util:log("DEBUG", ("##$imgLink): ", $imgLink))
     return
         <img src="images/{$imgLink}?s={$size}"/>
 };
@@ -470,6 +473,8 @@ declare function bs:get-icon($size as xs:int, $item, $currentPos as xs:int) {
         (: NB: It should be checked if the URL leads to an image described in the record:)
         then
             let $image-path := concat(util:collection-name($item), "/", xmldb:encode($image-url))
+            let $log := util:log("DEBUG", ("##$image-url): ", $image-url))
+            let $log := util:log("DEBUG", ("##$image-path): ", $image-path))
             return
                 if (collection($image-path)) 
                 then bs:get-icon-from-folder($size, $image-path)
