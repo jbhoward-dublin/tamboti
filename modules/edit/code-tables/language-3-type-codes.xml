@@ -48,6 +48,7 @@
         </item>
         <item>
             <value>ara</value>
+            <value>arab</value><!--allowing faulty values in Naddara-->
             <valueTerm/>
             <valueTwo>ar</valueTwo>
             <label>Arabic</label>
