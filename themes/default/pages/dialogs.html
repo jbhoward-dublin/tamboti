@@ -56,19 +56,80 @@
             </div>
         </form>
     </jquery:dialog>
-    
-    <!-- upload file-->
     <jquery:dialog id="upload-file-dialog" modal="true" title="Upload File" trigger="#upload-file" width="450">
+        <p>
+            <input id="files-upload" type="file" multiple=""/>
+        </p>
+        <p id="drop-area">
+            <span class="drop-instructions">or drag and drop files here</span>
+            <span class="drop-over">Drop files here!</span>
+        </p>
+        <ul id="file-list">
+            <li class="no-items">(no files uploaded yet)</li>
+        </ul>
+        
+        
+        
+        <!--
+        <div id="holder"/>
+        <p id="upload" class="hiddenme">
+            <label>Drag & drop not supported, but you can still upload via this input field:<input type="file"/>
+            </label>
+        </p>
+        <p class="hiddenme" id="filereader">File API & FileReader API not supported</p>
+        <p class="hiddenme" id="formdata">XHR2's FormData is not supported</p>
+        <p class="hiddenme" id="progress">XHR2's upload progress isn't supported</p>
+        <p>Upload progress: <progress id="uploadprogress" min="0" max="100" value="0">0</progress>
+        </p>
+       
+        
         <jquery:button id="cancel" label="Cancel"/>
-        <form id="upload-file-form" action="upload.xql" enctype="multipart/form-data" method="post">
+        <jquery:button label="Submit" function="uploadFile" id="Submit"/>   
+        <form  id="#upload-file-form" action="simple_upload.xql" enctype="multipart/form-data" method="post">
+            <input id="collection_path" type="hidden" name="collection"/>
+            <div> upload: </div>
+            <div>
+            <input type="file" name="files[]" multiple="multiple" id="avatar"/>
+                                         
+            </div>
+            
+            </form>
+        
+        
+        
+        
+        <table id="uploadFileDetails">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        -->
+    </jquery:dialog>
+    
+    <!--jquery:dialog id="upload-file-dialog" modal="true" title="Upload File" trigger="#upload-file" width="450">
+        <jquery:button id="cancel" label="Cancel"/>
+        
+        <form target="iframe-post-form" action="upload.xql" enctype="multipart/form-data" method="post">
             <input id="rename-collection-path_" type="hidden" name="collection"/>
             <div> upload: </div>
             <div>
-                <input type="file" name="files[]" multiple="multiple"/>
+                <input type="file" name="files[]" multiple="multiple" id="inputTypeFile"/>
                 <button type="submit">Submit</button>
+                <jquery:button label="Submit" function="uploadFile" id="Submit"/>             
             </div>
         </form>
-    </jquery:dialog>
+    </jquery:dialog-->
     <jquery:dialog id="rename-collection-dialog" modal="true" title="Rename Folder" trigger="#collection-rename-folder" width="450">
         <jquery:button label="Rename" function="renameCollection"/>
         <jquery:button id="cancel" label="Cancel"/>

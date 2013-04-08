@@ -22,6 +22,20 @@
         <link rel="stylesheet" type="text/css" href="theme/css/theme.css"/>
         <link rel="shortcut icon" href="theme/images/favicon.ico"/>
         <link rel="unapi-server" type="application/xml" title="unAPI" href="unapi.xql"/>
+        <script type="text/javascript" src="resources/scripts/dropbox.js"/>
+        <script type="text/javascript" src="resources/scripts/h5utils.js"/>
+        <script type="text/javascript" src="resources/scripts/ga.js"/>
+        <script type="text/javascript" src="resources/scripts/prettify.js"/>
+        <style>
+        #holder { border: 10px dashed #ccc; width: 100px; min-height: 50px; margin: 20px auto;}
+        #holder.hover { border: 10px dashed #0c0; }
+        #holder img { display: block; margin: 10px auto; }
+        #holder p { margin: 10px; font-size: 14px; }
+        progress { width: 100%; }
+        progress:after { content: '%'; }
+        .fail { background: #c00; padding: 2px; color: #fff; }
+        .hiddenme { display: none !important;}
+        </style>
     </head>
     <body>
         <div class="templates:include?path=pages/dialogs.html"/>

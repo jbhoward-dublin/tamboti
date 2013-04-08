@@ -484,12 +484,35 @@ function refreshParentTreeNodeAndFocusOnChild(focusOnKey) {
  */
   
 function uploadFile(dialog) {
-    var name = $('#upload-file-form input[name = name]').val();
     var collection = getCurrentCollection();
-    var params = { action: 'upload-file', name: name, collection: collection};
-     $.post("upload.xql", params, function (data) {
+    var file_data = $("#avatar").prop("files")[0];   // Getting the properties of file from file field
+    //var name = $("#avatar").prop("files")[0]; 
+	var form_data = new FormData();                  // Creating object of FormData class
+	form_data.append("file", file_data) ;             // Appending parameter named file with properties of file_field to form_data
+	form_data.append("collection",collection) ;
+	//form_data.append("name",name) ;
+    //var name = $('#upload-file-form input[name = name]').val();
+ 
+    //var params = { action: 'upload-file', name: name, collection: collection};
+    $.ajax({
+                url: "simple_upload.xql",
+                dataType: 'script',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,                         // Setting the data attribute of ajax with file_data
+                type: 'post'
+       });
+    
+    
      dialog.dialog("close");
-      });
+      
+}
+
+
+//called each time the collection/folder sharing dialog is opened
+function updateFileList() {
+   $('#uploadFileList').dataTable().fnReloadAjax("filelist.xql?collection=" + escape(getCurrentCollection()));
 }
  
  /*
