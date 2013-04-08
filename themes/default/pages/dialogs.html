@@ -56,7 +56,7 @@
             </div>
         </form>
     </jquery:dialog>
-    <jquery:dialog id="upload-file-dialog" modal="true" title="Upload File" trigger="#upload-file" width="450">
+    <jquery:dialog id="upload-file-dialog" modal="true" title="Upload File" trigger="#upload-file" width="800">
         <p>
             <input id="files-upload" type="file" multiple=""/>
         </p>
@@ -64,9 +64,7 @@
             <span class="drop-instructions">or drag and drop files here</span>
             <span class="drop-over">Drop files here!</span>
         </p>
-        <ul id="file-list">
-            <li class="no-items">(no files uploaded yet)</li>
-        </ul>
+        <ul id="file-list"/>
         
         
         
@@ -116,6 +114,8 @@
         </table>
         -->
     </jquery:dialog>
+    <script type="text/javascript" src="resources/scripts/multi-upload.js"/>
+    
     
     <!--jquery:dialog id="upload-file-dialog" modal="true" title="Upload File" trigger="#upload-file" width="450">
         <jquery:button id="cancel" label="Cancel"/>
