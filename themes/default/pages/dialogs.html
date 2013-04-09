@@ -57,11 +57,23 @@
         </form>
     </jquery:dialog>
     <jquery:dialog id="upload-file-dialog" modal="true" title="Upload File" trigger="#upload-file" width="800">
-        <p>
-            <input id="files-upload" type="file" multiple=""/>
-        </p>
+        <table id="attachedFilesDetails">
+            <thead>
+                <tr>
+                    <th>Thumbnail</th>
+                    <th>Name</th>
+                    <th>Filesize</th>
+                    <th>Display Type</th>
+                    <th>Private</th>
+                    <th>Group</th>
+                    <th>All</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
         <p id="drop-area">
-            <span class="drop-instructions">or drag and drop files here</span>
+            <span class="drop-instructions">drag and drop files here</span>
             <span class="drop-over">Drop files here!</span>
         </p>
         <ul id="file-list"/>
@@ -233,6 +245,9 @@
             <input id="move-resource-id" name="resource" type="hidden" value=""/>
         </form>
     </jquery:dialog>
+    
+    
+    
     <!-- Dialog is created in application.xql, biblio:resource-types(). -->
     <jquery:dialog id="new-resource-dialog" modal="true" title="Create Stand-Alone Record" trigger="#collection-create-resource" width="550">
         <jquery:button id="create" label="Create" function="newResource"/>

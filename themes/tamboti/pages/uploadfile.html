@@ -6,127 +6,33 @@
         <!--[if lte IE 8]>
 <script src="http://robertnyman.com/js/html5.js"></script>
 <![endif]-->
-        <style>
-
-#drop-area {
-    border: 2px dashed #DDDDDD;
-    height: 50px;
-    margin-bottom: 2em;
-    padding: 10px;
-    text-align: center;
-}
-#drop-area .drop-instructions {
-    display: block;
-    height: 30px;
-}
-#drop-area .drop-over {
-    display: none;
-    font-size: 25px;
-    height: 30px;
-}
-#drop-area.over {
-    background: none repeat scroll 0 0 #FFFFA2;
-    border: 2px dashed #000000;
-}
-#drop-area.over .drop-instructions {
-    display: none;
-}
-#drop-area.over .drop-over {
-    display: block;
-}
-#drop-area.over .drop-over {
-    display: block;
-    font-size: 25px;
-}
-#file-list {
-    list-style: none outside none;
-    margin-bottom: 3em;
-    margin-left:0;
-      width:600px;
-}
-#file-list li {
-    border-bottom: 1px solid #000000;
-    margin-bottom: 0.5em;
-    padding-bottom: 0.5em;
-    display:inline-block;
-    float:left;
-    padding-left:2px;
-   
-    
-}
-
-#file-list ul {
-    width:600px;
-    
-}
-
-#file-list li.no-items {
-    border-bottom: medium none;
-}
-#file-list div {
-    margin-bottom: 0.5em;
-}
-#file-list li img {
-    max-width: 400px;
-}
-#file-list .progress-bar-container {
-    border: 0px solid #555555;
-    height: 40px;
-    
-    
-}
-#file-list .progress-bar-container.uploaded {
-    border: medium none;
-    
-    height:40px;  display:inline; float:left;
-       position: absolute;
-}
-
-#file-list .progress-bar-container.uploaded ul  {
-    position: absolute;
-    display: none;
-}
-
-#file-list .progress-bar {
-    background: none repeat scroll 0 0 #6787E3;
-    font-weight: bold;
-    height: 10px;
-    width: 0;
-}
-#file-list .progress-bar-container.uploaded .progress-bar {
-    background: none repeat scroll 0 0 transparent;
-    color: #6DB508;
-    display: inline-block;
-    width: 200px;
-    float: left;
-    height:40px;
-    align:right; 
-    
-}
-#namewidth{
-    width: 300px;
-}
-#typewidth{
-    width: 50px;
-}
-
-#sizewidth{
-    width: 100px;
-}
-
-
-
-</style>
+        <link rel="stylesheet" type="text/css" href="theme/css/biblio.css"/>
+        <link rel="stylesheet" type="text/css" href="theme/css/theme.css"/>
+        <link rel="stylesheet" type="text/css" href="theme/css/upload.css"/>
     </head>
     <body>
-        <p>
+        <!--p>
             <input id="files-upload" type="file"/>
-        </p>
+        </p-->
+        <table id="collectionSharingDetails">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Reading</th>
+                    <th>Writing Allowed?</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
         <p id="drop-area">
             <span class="drop-instructions">or drag and drop files here</span>
             <span class="drop-over">Drop files here!</span>
         </p>
         <div id="file-list"/>
         <script type="text/javascript" src="resources/scripts/multi-upload.js"/>
+        <script type="text/javascript" src="resources/scripts/query.js"/>
     </body>
 </html>
