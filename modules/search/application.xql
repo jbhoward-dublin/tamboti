@@ -160,6 +160,8 @@ declare variable $biblio:FIELDS :=
        		mods:mods[ft:query(., '$q', $options)]
        		   union
        		vra:vra[ft:query(., '$q', $options)]
+       		union
+       		tei:TEI[ft:query(., '$q', $options)]
        		   union
        		ft:search('page:$q')
 	           union

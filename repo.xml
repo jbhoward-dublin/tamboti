@@ -15,5 +15,16 @@
     <status>stable</status>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
+<<<<<<< HEAD
     <deployed>2013-04-03T10:42:47.896+02:00</deployed>
+=======
+    <deployed>2013-01-14T14:05:41.281+01:00</deployed>
+    <changelog>
+        <change version="">
+            <ul xmlns="">
+                <li/>
+            </ul>
+        </change>
+    </changelog>
+>>>>>>> 1741cef69a69cbcbee3cd341155ba9c681aecf55
 </meta>

@@ -260,6 +260,8 @@ declare function op:upload($collection, $path, $data) {
     return ()
  };
  
+ 
+ 
     
 declare function op:upload-file($name, $data ,$collection) {
  op:upload(xmldb:encode-uri($collection), xmldb:encode-uri($name), $data)

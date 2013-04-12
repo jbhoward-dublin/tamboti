@@ -293,6 +293,9 @@ declare function col:get-child-tree-nodes-recursive($base-collection as xs:strin
           else()
 };
 
+
+
+
 declare function col:get-child-tree-nodes-recursive-for-group($collections as xs:string*, $expanded-collections as xs:string*) as element(node)* { 
     for $collection in $collections
     let $base-collection := fn:replace($collection, fn:concat("(", $config:users-collection, "/[^/]*)/.*"), "$1")
@@ -382,3 +385,4 @@ else if(request:get-parameter("activeKey",()))then
 else
     (: no key, so its the root that we want :)
     col:get-root-collection($config:mods-root)
+    

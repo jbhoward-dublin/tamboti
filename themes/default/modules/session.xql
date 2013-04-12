@@ -114,6 +114,8 @@ declare function bs:view-gallery-item($mode as xs:string, $item as element(mods:
         </li>
 };
 
+
+
 declare function bs:mods-detail-view-table($item as element(mods:mods), $currentPos as xs:int) {
     let $isWritable := bs:collection-is-writable(util:collection-name($item))
     let $id := concat(document-uri(root($item)), '#', util:node-id($item))
@@ -424,7 +426,9 @@ declare function bs:toolbar($item as element(), $isWritable as xs:boolean, $id a
                     </a>
                     ,
                     <a class="remove-resource" href="#{$id}"><img title="Delete Record" src="theme/images/delete.png"/></a>,
-                    <a class="move-resource" href="#{$id}"><img title="Move Record" src="theme/images/shape_move_front.png"/></a>
+                    <a class="move-resource" href="#{$id}"><img title="Move Record" src="theme/images/shape_move_front.png"/></a>,
+                    
+                    <a class="upload-file-style"  href="#{$id}"><img title="Upload Attachment" src="theme/images/database_add.png"/> </a>
                     )
                 else ()
             }
@@ -551,6 +555,15 @@ declare function bs:view-gallery($mode as xs:string, $cached as item()*, $stored
     Main function: retrieves query results from session cache and
     checks which display mode to use.
 :)
+
+ declare function bs:get-resource($start as xs:int, $count as xs:int){
+ 
+  let $resouce := session:get-attribute("mods:cached")
+ 
+  return $resouce
+ };
+ 
+ 
 declare function bs:retrieve($start as xs:int, $count as xs:int) {
     let $mode := request:get-parameter("mode", "gallery")
     let $cached := session:get-attribute("mods:cached")
@@ -580,5 +593,13 @@ let $start0 := request:get-parameter("start", ())
 let $start := xs:int(if ($start0) then $start0 else 1)
 let $count0 := request:get-parameter("count", ())
 let $count := xs:int(if ($count0) then $count0 else 10)
+
+let $action := request:get-parameter("action", ())
 return
-    bs:retrieve($start, $count)
+      if($action eq "get-resource")then
+         bs:get-resource($start,$count)
+      else
+        bs:retrieve($start, $count)
+
+    
+    

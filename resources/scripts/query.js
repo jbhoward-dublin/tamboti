@@ -91,7 +91,7 @@ $(document).ready(function(){
     $('#add-project-to-share-button').click(function(){
         addProjectToShare();
     });
-    
+    emptyFileList();
     showNotices();
 });
 
@@ -111,6 +111,7 @@ function bindAdditionalDialogTriggers() {
     $("#collection-move-folder").click(function(){
         refreshCollectionMoveList();
     });
+    
     
     $("#collection-create-folder").click(function(){
         $("#new-collection-name").val('');
@@ -398,6 +399,16 @@ function refreshResourceMoveList() {
     });
 }
 
+
+
+/*
+ * called when the user  clicks the add attachment button
+ */
+ function emptyFileList(){
+    $('#file-list').empty();
+    
+ }
+
 /*
     Called when the user clicks on the "move" button in the remove resource dialog
  */
@@ -407,7 +418,7 @@ function moveResource(dialog) {
     var params = { action: 'move-resource', path: path, resource: resource };
     $.get("operations.xql", params, function (data) {
           
-        dialog.dialog("close");
+     dialog.dialog("close");
     });
 }
 
@@ -768,6 +779,20 @@ function resultsLoaded(options) {
         $('#add-related-form input[name = collection]').val(params[0]);
         $('#add-related-form input[name = host]').val(params[1]);
         $('#add-related-dialog').dialog('open');
+        
+    });
+    
+    /**  add upload action*/
+     $('.actions-toolbar .upload-file-style', this).click(function(ev) {
+        ev.preventDefault();
+        $('#upload-resource-id').html($(this).attr('href').substr(1));
+        var collection = getCurrentCollection();
+        $('#upload-resource-folder').html(collection);
+        //clean old  files
+        emptyFileList();
+        $('#upload-file-dialog').dialog('open');
+        
+        
     });
     
     //notify zotero that the dom has changed

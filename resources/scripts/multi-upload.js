@@ -60,7 +60,7 @@
 		}, false);
 		
 		// File uploaded
-		
+		//var file_folder = $('#upload-resource-folder').val		
 		xhr.addEventListener("load", function () {
 			progressBarContainer.className += " uploaded";
 			progressBar.innerHTML = "Uploaded!";
@@ -73,6 +73,7 @@
 		xhr.setRequestHeader("X-File-Name", file.name);
 		xhr.setRequestHeader("X-File-Size", file.size);
 		xhr.setRequestHeader("X-File-Type", file.type);
+		//xhr.setRequestHeader("X-File-folder", file_folder);
 
 		// Send the file (doh)
 		xhr.send(file);

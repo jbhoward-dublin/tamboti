@@ -56,7 +56,17 @@
             </div>
         </form>
     </jquery:dialog>
-    <jquery:dialog id="upload-file-dialog" modal="true" title="Upload File" trigger="#upload-file" width="800">
+    <jquery:dialog id="upload-file-dialog" class="upload-file-style" modal="true" title="File attachments" trigger="#upload-file-to-resource" width="900">
+        <table>
+            <tr>
+                <td>
+                    <div id="upload-resource-id" name="resource"/>
+                </td>
+                <td>
+                    <div id="upload-resource-folder" name="resource"/>
+                </td>
+            </tr>
+        </table>
         <table id="attachedFilesDetails">
             <thead>
                 <tr>
@@ -67,6 +77,16 @@
                     <th>Private</th>
                     <th>Group</th>
                     <th>All</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span id="file-attachment-source"/>
+                        </div>
+                    </td>
+                    <td>
+        
+                    </td>
                 </tr>
             </thead>
             <tbody>
