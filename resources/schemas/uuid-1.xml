@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<digitalObject xmlns="info:fedora/fedora-system:def/foxml#"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# file:/home/withanage/tamboti/tamboti-git/tamboti/resources/schemas/foxml1-1.xsd" VERSION="1.1" PID="0:0" FEDORA_URI="http://www.oxygenxml.com/">
+    <objectProperties>
+        <property NAME="info:fedora/fedora-system:def/model#state" VALUE="VALUE1"/>
+        <extproperty NAME="uuid" VALUE="xxxx"/>
+    </objectProperties>
+    <datastream ID="1111s" CONTROL_GROUP="E" FEDORA_URI="http://tamboti.uni-hd.de"
+         STATE="A" VERSIONABLE="true">
+        <datastreamVersion ID="UUID" LABEL="" CREATED="2006-05-04T18:13:51.0Z" MIMETYPE="MIMETYPE1"
+              FORMAT_URI="" SIZE="0">
+            <contentDigest TYPE="MD5" DIGEST="DIGEST1"/>
+            <xmlContent>
+             <vra xsi:schemaLocation="http://www.vraweb.org/vracore4.htm http://cluster-schemas.uni-hd.de/vra-strictCluster.xsd">
+                 <image id="i_6f9098ce-be7d-50a7-9146-ee3c0422df4f" source="Tamboti" refid="#" href="#">
+                     <titleSet><display/><title type="generalView"></title></titleSet>  
+             </image>    
+                 
+              </vra>       
+            </xmlContent>
+            
+        </datastreamVersion>
+        
+     
+    </datastream>
+   
+    
+</digitalObject>
