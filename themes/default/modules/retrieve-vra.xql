@@ -10,6 +10,7 @@ declare namespace hra="http://cluster-schemas.uni-hd.de";
 import module namespace config="http://exist-db.org/mods/config" at "../../../modules/config.xqm";
 import module namespace uu="http://exist-db.org/mods/uri-util" at "../../../modules/search/uri-util.xqm";
 import module namespace vra-common="http://exist-db.org/vra/common" at "../../../modules/vra-common.xql";
+import module namespace mods-common="http://exist-db.org/mods/common" at "../../../modules/mods-common.xql";
 
 (:The $retrieve-vra:primary-roles values are lower-cased when compared.:)
 declare variable $retrieve-vra:primary-roles := ('aut', 'author', 'cre', 'creator', 'composer', 'cmp', 'artist', 'art', 'director', 'drt');
@@ -209,6 +210,13 @@ declare function retrieve-vra:format-detail-view($position as xs:string, $entry 
             </tr>    
     
     }
+    <tr>
+        <td>
+        {mods-common:simple-row(concat(replace(request:get-url(), '/retrieve', '/index.html'), '?filter=ID&amp;value=', $id), 'Stable Link to This Record')}
+        
+        </td>
+    </tr>
+    
     </table>
 };
 

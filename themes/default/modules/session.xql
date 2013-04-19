@@ -126,12 +126,16 @@ declare function bs:mods-detail-view-table($item as element(mods:mods), $current
             <td class="pagination-number">{$currentPos}</td>
             <td class="actions-cell">
                 <a id="save_{$id}" href="#{$currentPos}" class="save">
-                    <img title="{if ($saved) then 'Remove Record from My List' else 'Save Record to My List'}" src="theme/images/{if ($saved) then 'disk_gew.gif' else 'disk.gif'}" class="{if ($saved) then 'stored' else ''}"/>
+                    <img title="{if ($saved) then 'Removes Record from My List' else 'Saves Record to My List'}" src="theme/images/{if ($saved) then 'disk_gew.gif' else 'disk.gif'}" class="{if ($saved) then 'stored' else ''}"/>
                 </a>
+                
             </td>
+            
             <td class="magnify detail-type">
             { bs:get-icon($bs:THUMB_SIZE_FOR_DETAIL_VIEW, $item, $currentPos)}
+            
             </td>
+            
             <td class="detail-xml">
                 { bs:toolbar($item, $isWritable, $id) }
                 <abbr class="unapi-id" title="{bs:get-item-uri($item/@ID)}"></abbr>
@@ -144,6 +148,7 @@ declare function bs:mods-detail-view-table($item as element(mods:mods), $current
                         (: What is $currentPos used for? :)
                 }
             </td>
+           
         </tr>
 };
 
@@ -163,6 +168,9 @@ declare function bs:vra-detail-view-table($item as element(vra:vra), $currentPos
             else '/vra:image/@id'
     let $stored := session:get-attribute("personal-list")
     let $saved := exists($stored//*[@id = $id])
+    let $results :=  collection($config:mods-root)//vra:work[@id=$id]/vra:relationset/vra:relation
+    
+    
 
     return
         <tr class="pagination-item detail" xmlns="http://www.w3.org/1999/xhtml">
@@ -171,6 +179,16 @@ declare function bs:vra-detail-view-table($item as element(vra:vra), $currentPos
                 <a id="save_{$id}" href="#{$currentPos}" class="save">
                     <img title="{if ($saved) then 'Remove Record from My List' else 'Save Record to My List'}" src="theme/images/{if ($saved) then 'disk_gew.gif' else 'disk.gif'}" class="{if ($saved) then 'stored' else ''}"/>
                 </a>
+            </td>
+            <td >
+                <div id="image-cover-box"> 
+                {
+                 
+                for $entry in $results
+                    return <img src="{$entry/@relids}"/>
+                    
+                }
+                </div>
             </td>
             <!--<td class="magnify detail-type">
             { bs:get-icon($bs:THUMB_SIZE_FOR_DETAIL_VIEW, $item, $currentPos)}
