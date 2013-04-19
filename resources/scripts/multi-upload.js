@@ -12,7 +12,11 @@
 			progressBar = document.createElement("div"),
 			reader,
 			xhr,
-			fileInfo;
+			fileInfo,
+			//heade definitions
+		 parent_record,
+		 upload_folder;
+		
 			
 		
 		div.position='absolute';
@@ -55,25 +59,30 @@
 				progressBar.style.width = (evt.loaded / evt.total) * 100 + "%";
 			}
 			else {
-				// No data to calculate on
+				
 			}
 		}, false);
 		
 		// File uploaded
-		//var file_folder = $('#upload-resource-folder').val		
+				
 		xhr.addEventListener("load", function () {
 			progressBarContainer.className += " uploaded";
 			progressBar.innerHTML = "Uploaded!";
 		}, false);
 		
 		xhr.open("post", "simple_upload.xql", true);
+		//heade definitions
+	    parent_record= $('#upload-resource-id').html();
+	    upload_folder = $('#upload-resource-folder').html();
 		
-		// Set appropriate headers
+		
+		// Set headers
 		xhr.setRequestHeader("Content-Type", "multipart/form-data");
 		xhr.setRequestHeader("X-File-Name", file.name);
 		xhr.setRequestHeader("X-File-Size", file.size);
 		xhr.setRequestHeader("X-File-Type", file.type);
-		//xhr.setRequestHeader("X-File-folder", file_folder);
+		xhr.setRequestHeader("X-File-Parent", parent_record);
+		xhr.setRequestHeader("X-File-Folder", upload_folder);
 
 		// Send the file (doh)
 		xhr.send(file);

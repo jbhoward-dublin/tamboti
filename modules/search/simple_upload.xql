@@ -1,13 +1,16 @@
 xquery version "3.0";
+(: author dulip withanage :)
 declare namespace upload = "http://exist-db.org/eXide/upload";
 import module namespace uu="http://exist-db.org/mods/uri-util" at "uri-util.xqm";
 declare namespace functx = "http://www.functx.com";
+declare namespace vra="http://www.vraweb.org/vracore4.htm";
 
 declare variable $rootcollection:='/db/resources/binaries';
 declare variable $usercol := xs:string(xmldb:get-current-user());
 declare variable $newcol := concat(xs:string($rootcollection),'/' , $usercol,'/');
 declare variable $user := 'admin';
 declare variable $userpass := '';
+declare variable $myuuid := concat('i_',util:uuid());
 
 
 
@@ -46,13 +49,16 @@ return  $directory-list
  } ;
  
  
-declare function upload:generate-object($size,  $mimetype,$uuid, $title, $file-uuid,$doc-type)
+declare function upload:generate-object($size,  $mimetype,$uuid, $title, $file-uuid,$doc-type,$workrecord)
 {
 let $vra-content := <vra xsi:schemaLocation="http://www.vraweb.org/vracore4.htm http://cluster-schemas.uni-hd.de/vra-strictCluster.xsd">
                  <image id="{$uuid}" source="Tamboti" refid="#" href="{$file-uuid}">
                      <titleSet><display/><title type="generalView">
                      {$title}</title></titleSet>  
-             </image>            </vra>    
+                     <relationset>
+             <relation type="imageOf" relids="{$workrecord}" refid="" source="Tamboti">attachment</relation>
+                </relationset>
+             </image> </vra>    
 
 
 let $digital-object :=
@@ -70,28 +76,22 @@ let $digital-object :=
             <contentDigest TYPE="MD5" DIGEST="DIGEST1"/>
             <xmlContent>
               
-          
-   
-   {
-    let $out-put:= if ($doc-type eq 'vra') then
-        $vra-content 
-    else()
-    return $out-put
-  }      
-            </xmlContent>
+                 </xmlContent>
         </datastreamVersion>
       </datastream>
    </digitalObject>
    
+ let $out-put:= if ($doc-type eq 'vra') then
+        $vra-content 
+    else(
    
-   
-  return $digital-object
+    )
+  
+  return $out-put
  };  
 
 
-
-
-declare function upload:upload( $filetype , $filesize, $rootcollection, $filename, $data, $doc-type) {
+declare function upload:upload( $filetype , $filesize, $rootcollection, $filename, $data, $doc-type, $workrecord) {
     
     
     let $upload := 
@@ -107,9 +107,9 @@ declare function upload:upload( $filetype , $filesize, $rootcollection, $filenam
                 xmldb:create-collection($rootcollection, $usercol)
                 )
                 (: update the xml object  :)
-                let $myuuid := concat('BID-',util:uuid())
+                
                 let $file-uuid := concat($myuuid, '.',functx:substring-after-last($filename,'.'))
-                let $xml-object := upload:generate-object($filesize, $filetype,$myuuid, $filename, $file-uuid,$doc-type)
+                let $xml-object := upload:generate-object($filesize, $filetype,$myuuid, $filename, $file-uuid,$doc-type,$workrecord)
                 (:save the xml file:)
                  let $upload := xmldb:store($newcol, concat($myuuid,'.xml'), $xml-object)
                 let $upload := xmldb:store($newcol, $file-uuid, $data)
@@ -118,24 +118,50 @@ declare function upload:upload( $filetype , $filesize, $rootcollection, $filenam
         )
         return $upload
  };
-
+ 
+ declare function upload:add-tag-to-parent-doc($parentdoc_path){
+ 
+ let $vra_insert := <vra:relation type="imageIs" relids="{$myuuid}" source="Tamboti" refid="" >general view</vra:relation>
+ let $parentdoc := doc($parentdoc_path)
+ let $relationTag := $parentdoc/vra:vra/vra:work/vra:relationset
+ return
+let $insert_or_updata := 
+if (not($relationTag))
+    then( 
+         update insert  <vra:relationset></vra:relationset> into $parentdoc/vra:vra/vra:work
+        )
+    else()
+        
+  let $vra-update := update insert  $vra_insert into $parentdoc/vra:vra/vra:work/vra:relationset
+ return  $vra-update
+ };
+ 
 
 let $filename := xmldb:encode(request:get-header('X-File-Name'))  
 let $filesize := xmldb:encode(request:get-header('X-File-Size'))
 let $filetype := xmldb:encode(request:get-header('X-File-Type'))
-
+let $workrecord := xmldb:encode(request:get-header('X-File-Parent'))
+let $filefolder := xmldb:encode(request:get-header('X-File-Folder'))
 let $data := request:get-data()
+
+
+let $parentdoc_path := concat($filefolder,'/',$workrecord,'.xml')
+let $tag-changed := upload:add-tag-to-parent-doc($parentdoc_path)
+
 
 let $mydata := upload:list-data()
 
-let $doc-type := if (contains($filetype,'png') or contains($filetype, 'jpg') or contains($filetype,'gif') or contains ($filetype,'tif')) 
-then (
- 'vra'
-)
-else
-(
-)
+(: type control:)
+let $doc-type := if (contains($filetype,'png') or contains($filetype, 'jpg') or contains($filetype,'gif') or contains ($filetype,'tif')
+or contains($filetype,'PNG') or contains($filetype, 'JPG') or contains($filetype,'GIF') or contains ($filetype,'TIF') or   
+ contains ($filetype,'jpeg'))
+ then ( 'vra')
+else()
 
-return <xml>{upload:upload($filetype, $filesize, xmldb:encode-uri($rootcollection), xmldb:encode-uri($filename), $data, $doc-type)}</xml>
+let $file-uploaded:= upload:upload($filetype, $filesize, xmldb:encode-uri($rootcollection), xmldb:encode-uri($filename), $data, $doc-type,$workrecord)
+
+
+return
+<xml>{$tag-changed}</xml>
 
  

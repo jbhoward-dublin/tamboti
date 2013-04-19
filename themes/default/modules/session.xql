@@ -429,6 +429,7 @@ declare function bs:toolbar($item as element(), $isWritable as xs:boolean, $id a
                     <a class="move-resource" href="#{$id}"><img title="Move Record" src="theme/images/shape_move_front.png"/></a>,
                     
                     <a class="upload-file-style"  href="#{$id}"><img title="Upload Attachment" src="theme/images/database_add.png"/> </a>
+                    
                     )
                 else ()
             }
