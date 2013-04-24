@@ -21,7 +21,7 @@ declare function local:apply-perms($path as xs:string, $username as xs:string, $
 
 
 let $collection := "/db/resources/commons/JSIT"
-let $username := "eric.decker@ad.uni-heidelberg.de"
+let $username := "max.mustermann@ad.uni-heidelberg.de"
 let $mode := "rwx"
 let $admin-password := "xyz"
     return
