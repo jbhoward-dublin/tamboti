@@ -6,13 +6,15 @@ import module namespace config="http://exist-db.org/mods/config" at "../../modul
 declare variable $col := $config:mods-root;
 declare variable $user := 'admin';
 declare variable $userpass := '';
-(:let $x := system:as-user($user, $userpass,xmldb:reindex($col)):)
+ (:let $x := system:as-user($user, $userpass,xmldb:reindex($col)):)
 
 let $results :=   collection($col)//vra:work[@id="w_186f5b16-e799-5bb5-b0c6-831575278973"]/vra:relationset/vra:relation
 let $images := for $entry in $results
-                    return <img src="{$entry/@relids}"/>
+                    (:return <img src="{$entry/@relids}"/>:)
+                    let $image := collection($col)//vra:image[@id=$entry/@relids]
+                   return <img src="{concat(request:get-scheme(),'://',request:get-server-name(),':',request:get-server-port(),request:get-context-path(),'/rest', util:collection-name($image),"/" ,$image/@href)}" />
      
      
 let $result_set := if (not($results)) then <xml>image uuid not found</xml> else ($results)
-return <xml>{$results}</xml>
+return <xml>{$images}</xml>
 

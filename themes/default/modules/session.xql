@@ -184,8 +184,13 @@ declare function bs:vra-detail-view-table($item as element(vra:vra), $currentPos
                 <div id="image-cover-box"> 
                 {
                  
-                for $entry in $results
-                    return <img src="{$entry/@relids}"/>
+                    
+                    
+                     for $entry in $results
+                    (:return <img src="{$entry/@relids}"/>:)
+                    let $image := collection($config:mods-root)//vra:image[@id=$entry/@relids]
+                   return <img src="{concat(request:get-scheme(),'://',request:get-server-name(),':',request:get-server-port(),request:get-context-path(),'/rest', util:collection-name($image),"/" ,$image/@href)}"  width="200px"/>
+
                     
                 }
                 </div>

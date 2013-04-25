@@ -493,7 +493,7 @@ function refreshParentTreeNodeAndFocusOnChild(focusOnKey) {
 /*
     Called when the user clicks on the "upload" button in the rename collection dialog.
  */
-  
+/*
 function uploadFile(dialog) {
     var collection = getCurrentCollection();
     var file_data = $("#avatar").prop("files")[0];   // Getting the properties of file from file field
@@ -520,6 +520,7 @@ function uploadFile(dialog) {
       
 }
 
+*/
 
 //called each time the collection/folder sharing dialog is opened
 function updateFileList() {

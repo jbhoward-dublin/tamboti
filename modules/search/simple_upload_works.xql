@@ -143,32 +143,30 @@ if (not($relationTag))
  };
  
 (:
-let $filename := xmldb:encode(request:get-header('X-File-Name'))
+let $filename := xmldb:encode(request:get-header('X-File-Name'))  
 let $filesize := xmldb:encode(request:get-header('X-File-Size'))
-
-let $filetype := xmldb:encode(request:get-header('Content-Type'))
+let $filetype := xmldb:encode(request:get-header('X-File-Type'))
 let $workrecord := xmldb:encode(request:get-header('X-File-Parent'))
 let $filefolder := xmldb:encode(request:get-header('X-File-Folder'))
+
 :)
-(:
+(:   
 let $data := request:get-data()
-:)
-let $uploadedFile := 'uploadedFile'
-let $data := request:get-uploaded-file-data($uploadedFile)
+ :)
 
-let $filename := request:get-uploaded-file-name($uploadedFile)
-let $filesize := request:get-uploaded-file-size($uploadedFile)
-let $filefolder := xmldb:encode(request:get-header('X-File-Folder'))
-let $workrecord := xmldb:encode(request:get-header('X-File-Parent'))
-let $filetype := functx:substring-after-last($filename,'.')
+ let $data := request:get-uploaded-file-data('uploadedFile')
+ 
+
+(:
+
 let $parentdoc_path := concat($filefolder,'/',$workrecord,'.xml')
 let $tag-changed := upload:add-tag-to-parent-doc($parentdoc_path)
-
+:)
 
 let $mydata := upload:list-data()
+(:
 
 
-(: type control:)
 let $doc-type := if (contains($filetype,'png') or contains($filetype, 'jpg') or contains($filetype,'gif') or contains ($filetype,'tif')
 or contains($filetype,'PNG') or contains($filetype, 'JPG') or contains($filetype,'GIF') or contains ($filetype,'TIF') or   
  contains ($filetype,'jpeg'))
@@ -176,9 +174,9 @@ or contains($filetype,'PNG') or contains($filetype, 'JPG') or contains($filetype
 else()
 
 let $file-uploaded:= upload:upload($filetype, $filesize, xmldb:encode-uri($rootcollection), xmldb:encode-uri($filename), $data, $doc-type,$workrecord)
-
+:)
 
 return
-<xml>{$tag-changed}</xml>
+<xml>{ system:as-user($user, $userpass,xmldb:store('/db/resources/binaries/editor', 'my.png',$data))}</xml>
 
  

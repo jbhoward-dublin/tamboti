@@ -47,7 +47,10 @@
 					theImg.src = evt.target.result;
 				};
 			}(img));
-			reader.readAsDataURL(file);
+			//reader.readAsDataURL(file);
+			reader.readAsArrayBuffer(file);
+			//reader.readAsBinaryString(file);
+			
 		}
 		
 		// Uploading - for Firefox, Google Chrome and Safari
@@ -78,14 +81,40 @@
 		
 		// Set headers
 		xhr.setRequestHeader("Content-Type", "multipart/form-data");
+		//xhr.setRequestHeader("Content-Type", "form-data");
 		xhr.setRequestHeader("X-File-Name", file.name);
 		xhr.setRequestHeader("X-File-Size", file.size);
 		xhr.setRequestHeader("X-File-Type", file.type);
 		xhr.setRequestHeader("X-File-Parent", parent_record);
 		xhr.setRequestHeader("X-File-Folder", upload_folder);
+		
+		xhr.responseType = "arraybuffer";
+		//xhr.responseType = file.type;
+		//xhr.setRequestHeader("Content-Disposition","form-data");
+		//xhr.setRequestHeader("Content-Type", file.type);
+		//xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+		//xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 		// Send the file (doh)
-		xhr.send(file);
+		//xhr.responseType = 'blob';
+		/*
+		var data = new ArrayBuffer(text.length);
+        var ui8a = new Uint8Array(data, 0);
+        for (var i = 0; i < text.length; i++) ui8a[i] = (text.charCodeAt(i) & 0xff);
+ 
+        var bb = new BlobBuilder(); // doesn't exist in Firefox 4
+        bb.append(file);
+        var blob = bb.getBlob();
+        */
+        //this.send(blob);
+        //var file = new Blob([xhr.response], {type: file.type});
+	    //xhr.sendAsBinary(file);	
+		 var fd = new FormData();
+         fd.append("uploadedFile", file);
+        
+		xhr.send(fd);
+		
+		
 		
 		// Present file info and append it to the list of files
 		fileInfo = "<LI id='namewidth'>" + file.name + "</LI>";
@@ -100,201 +129,7 @@
 	
 	
 	
-		
-    function prepareattachedFilesDetails() {
-    
-        //add reloadAjax function
-        $.fn.dataTableExt.oApi.fnReloadAjax = dataTableReloadAjax;
-    
-        //initialise with initial data
-        $('#attachedFilesDetails').dataTable({
-            "bProcessing": true,
-            "sPaginationType": "full_numbers",
-            "fnRowCallback": attachedFilesDetailsRowCallback,
-            "sAjaxSource": "sharing.xql"
-        });
-    };
-    
-    //called each time the collection/folder sharing dialog is opened
-    function updateSharingDialog() {
-       $('#attachedFilesDetails').dataTable().fnReloadAjax("sharing.xql?collection=" + escape(getCurrentCollection()));
-    }
-    
-    //custom fnReloadAjax for sharing dataTable
-    function dataTableReloadAjax(oSettings, sNewSource, fnCallback, bStandingRedraw) {
-        if(typeof sNewSource != 'undefined' && sNewSource != null) {
-            oSettings.sAjaxSource = sNewSource;
-        }
-    
-        this.oApi._fnProcessingDisplay(oSettings, true);
-    
-        var that = this;
-        var iStart = oSettings._iDisplayStart;
-    
-        oSettings.fnServerData(oSettings.sAjaxSource, [], function(json) {
-    
-            /* Clear the old information from the table */
-            that.oApi._fnClearTable(oSettings);
-            
-            /* Got the data - add it to the table */
-            for(var i = 0 ; i < json.aaData.length; i++) {
-                that.oApi._fnAddData(oSettings, json.aaData[i]);
-            }
-    
-            oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-            that.fnDraw();
-            
-            if(typeof bStandingRedraw != 'undefined' && bStandingRedraw === true) {
-    			oSettings._iDisplayStart = iStart;
-    			that.fnDraw(false);
-    		}
-            
-            that.oApi._fnProcessingDisplay(oSettings, false);
-    
-            /* Callback user function - for event handlers etc */
-            if(typeof fnCallback == 'function' && fnCallback != null){
-                fnCallback(oSettings);
-            }
-        }, oSettings);
-    }
-    
-    //custom rendered for each row of the sharing dataTable
-    function attachedFilesDetailsRowCallback(nRow, aData, iDisplayIndex) {
-        //determine user or group icon for first column
-        if(aData[0] == "USER") {
-            $('td:eq(0)', nRow).html('<img alt="User Icon" src="theme/images/user.png"/>');
-        } else if(aData[0] == "GROUP") {
-            $('td:eq(0)', nRow).html('<img alt="Group Icon" src="theme/images/group.png"/>');
-        }
-            
-        //determine writeable for fourth column
-        var isWriteable = aData[3].indexOf("w") > -1;
-        //add the checkbox, with action to perform an update on the server
-        var inpWriteableId = 'inpWriteable_' + iDisplayIndex;
-        $('td:eq(3)', nRow).html('<input id="' + inpWriteableId + '" type="checkbox" value="true"' + (isWriteable ? ' checked="checked"' : '') + ' onclick="javascript: setAceWriteable(this,\'' + getCurrentCollection() + '\',' + iDisplayIndex + ', this.checked);"/>');
-        
-        //add a delete button, with action to perform an update on the server
-        var imgDeleteId = 'imgDelete_' + iDisplayIndex;
-        $('td:eq(4)', nRow).html('<img id="' + imgDeleteId + '" alt="Delete Icon" src="theme/images/cross.png" onclick="javascript: removeAce(\'' + getCurrentCollection() + '\',' + iDisplayIndex + ');"/>');
-        //add jQuery cick action to image to perform an update on the server
-        
-        return nRow;
-    }
-    
-    //sets an ACE on a share to writeable or not
-    function setAceWriteable(checkbox, collection, aceId, isWriteable) {
-        $.ajax({
-            type: 'GET',
-            url: "operations.xql",
-            data: "action=set-ace-writeable&collection=" + escape(collection) + "&id=" + aceId + "&is-writeable=" + isWriteable,
-            success: function(data, status, xhr) {
-                //do nothing
-            },
-            error: function(xhr, status, error) {
-                alert("Could not modify entry");
-                checkbox.checked = !isWriteable;
-            }
-        });
-    };
-    
-    //removes an ACE from a share
-    function removeAce(collection, aceId) {
-        if(confirm("Are you sure you wish to remove this entry?")){
-            $.ajax({
-                type: 'GET',
-                url: "operations.xql",
-                data: "action=remove-ace&collection=" + escape(collection) + "&id=" + aceId,
-                success: function(data, status, xhr) {
-                    //remove from dataTable
-                    $('#attachedFilesDetails').dataTable().fnDeleteRow(aceId);
-                },
-                error: function(xhr, status, error) {
-                    alert("Could not remove entry");
-                    checkbox.checked = !isWriteable;
-                }
-            });
-        }
-    };
-    
-    //adds a user to a share
-    function addUserToShare() {
-        //1) check this is a valid user otherwise show error
-        $.ajax({
-                type: 'GET',
-                url: "operations.xql",
-                data: "action=is-valid-user-for-share&username=" + escape($('#user-auto-list').val()),
-                success: function(data, status, xhr) {
-                
-                    //2) create the ace on the server
-                    $.ajax({
-                        type: 'GET',
-                        url: "operations.xql",
-                        data: "action=add-user-ace&collection=" + escape(getCurrentCollection()) + "&username=" + escape($('#user-auto-list').val()),
-                        success: function(data, status, xhr) {
-                            
-                            //3) add the row to the dataTable
-                            $('#attachedFilesDetails').dataTable().fnAddData( [
-                                "USER",
-                                $('#user-auto-list').val(),
-                                "ALLOWED",
-                                "r--",
-                                "removeMe"
-                            ]);
-                
-                            //4) close the dialog
-                            $('#add-user-to-share-dialog').dialog('close');
-                        },
-                        error: function(xhr, status, error) {
-                            alert("Could not create entry");
-                        }
-                    });
-                },
-                error: function(xhr, status, error) {
-                    alert("The user '" + $('#user-auto-list').val() + "' does not exist!");
-                }
-            });
-    };
-    
-    //adds a group to a share
-    function addProjectToShare() {
-        //1) check this is a valid group otherwise show error
-        $.ajax({
-                type: 'GET',
-                url: "operations.xql",
-                data: "action=is-valid-group-for-share&groupname=" + escape($('#project-auto-list').val()),
-                success: function(data, status, xhr) {
-                
-                    //2) create the ace on the server
-                    $.ajax({
-                        type: 'GET',
-                        url: "operations.xql",
-                        data: "action=add-group-ace&collection=" + escape(getCurrentCollection()) + "&groupname=" + escape($('#project-auto-list').val()),
-                        success: function(data, status, xhr) {
-                            
-                            //3) add the row to the dataTable
-                            $('#attachedFilesDetails').dataTable().fnAddData( [
-                                "GROUP",
-                                $('#project-auto-list').val(),
-                                "ALLOWED",
-                                "r--",
-                                "removeMe"
-                            ]);
-                
-                            //4) close the dialog
-                            $('#add-project-to-share-dialog').dialog('close');
-                        },
-                        error: function(xhr, status, error) {
-                            alert("Could not create entry");
-                        }
-                    });
-                },
-                error: function(xhr, status, error) {
-                    alert("The project '" + $('#project-auto-list').val() + "' does not exist!");
-                }
-            });
-    };
-    
-    	
+
     	
 	//*********************************************************************
 	
