@@ -4,7 +4,11 @@ declare namespace upload = "http://exist-db.org/eXide/upload";
 import module namespace uu="http://exist-db.org/mods/uri-util" at "uri-util.xqm";
 declare namespace functx = "http://www.functx.com";
 declare namespace vra="http://www.vraweb.org/vracore4.htm";
+declare namespace mods="http://www.loc.gov/mods/v3";
 
+
+
+declare variable $rootdatacollection:='/db/resources/';
 declare variable $rootcollection:='/db/resources/binaries';
 declare variable $usercol := xs:string(xmldb:get-current-user());
 declare variable $newcol := concat(xs:string($rootcollection),'/' , $usercol,'/');
@@ -81,7 +85,7 @@ let $digital-object :=
       </datastream>
    </digitalObject>
    
- let $out-put:= if ($doc-type eq 'vra') then
+ let $out-put:= if ($doc-type eq 'image') then
         $vra-content 
     else(
    
@@ -125,30 +129,69 @@ declare function upload:upload( $filetype , $filesize, $rootcollection, $filenam
         return $upload
  };
  
- declare function upload:add-tag-to-parent-doc($parentdoc_path){
+ declare function upload:add-tag-to-parent-doc($parentdoc_path , $parent_type as xs:string){
  
- let $vra_insert := <vra:relation type="imageIs" relids="{$myuuid}" source="Tamboti" refid="" >general view</vra:relation>
- let $parentdoc := doc($parentdoc_path)
- let $relationTag := $parentdoc/vra:vra/vra:work/vra:relationset
- return
-let $insert_or_updata := 
-if (not($relationTag))
-    then( 
-         update insert  <vra:relationset></vra:relationset> into $parentdoc/vra:vra/vra:work
-        )
-    else()
+  let $parentdoc := doc($parentdoc_path)
+ let $add :=
+ if  ($parent_type eq 'vra')
+    then (
+    let $vra_insert := <vra:relation type="imageIs" relids="{$myuuid}" source="Tamboti" refid="" >general view</vra:relation>
+   
+    let $relationTag := $parentdoc/vra:vra/vra:work/vra:relationset
+    return
+       let $insert_or_updata := 
+        if (not($relationTag))
+           then( 
+            update insert  <vra:relationset></vra:relationset> into $parentdoc/vra:vra/vra:work
+           )
         
-  let $vra-update := update insert  $vra_insert into $parentdoc/vra:vra/vra:work/vra:relationset
- return  $vra-update
- };
+           else()
+           
+       let $vra-update := update insert  $vra_insert into $parentdoc/vra:vra/vra:work/vra:relationset
+       return  $vra-update
+    )
+    else if ($parent_type eq 'mods')
+        then
+        (
+        let $mods-insert := <mods:relatedItem  xmlns:mods="http://www.loc.gov/mods/v3" type="constituent">
+        <mods:typeOfResource>still image</mods:typeOfResource>
+            <mods:location>
+                <mods:url displayLabel="Illustration" access="preview">{$myuuid}</mods:url>
+            </mods:location>
+        </mods:relatedItem>
+        let $mods-update := update insert  $mods-insert into $parentdoc/mods:mods
+       return  $mods-update
+        
+        )
+    else  ()
+return $add
+};
+ 
+ 
+  
+ declare function upload:determine-type($workrecord){
+    
+    let $vra_image := collection($rootdatacollection)//vra:work[@id=$workrecord]/@id
+    let $type := if (exists($vra_image))
+    then 
+    ('vra')
+    else(
+    let $mods := collection($rootdatacollection)//mods:mods[@ID=$workrecord]/@ID
+    let $mods_type := if (exists($mods))
+    then ('mods')
+    else ()
+    return $mods_type
+    
+    )
+    
+    return  $type
+};  
  
 (:
 let $filename := xmldb:encode(request:get-header('X-File-Name'))
 let $filesize := xmldb:encode(request:get-header('X-File-Size'))
 
 let $filetype := xmldb:encode(request:get-header('Content-Type'))
-let $workrecord := xmldb:encode(request:get-header('X-File-Parent'))
-let $filefolder := xmldb:encode(request:get-header('X-File-Folder'))
 :)
 (:
 let $data := request:get-data()
@@ -161,8 +204,9 @@ let $filesize := request:get-uploaded-file-size($uploadedFile)
 let $filefolder := xmldb:encode(request:get-header('X-File-Folder'))
 let $workrecord := xmldb:encode(request:get-header('X-File-Parent'))
 let $filetype := functx:substring-after-last($filename,'.')
+
 let $parentdoc_path := concat($filefolder,'/',$workrecord,'.xml')
-let $tag-changed := upload:add-tag-to-parent-doc($parentdoc_path)
+let $tag-changed := upload:add-tag-to-parent-doc($parentdoc_path, upload:determine-type($workrecord))
 
 
 let $mydata := upload:list-data()
@@ -172,13 +216,12 @@ let $mydata := upload:list-data()
 let $doc-type := if (contains($filetype,'png') or contains($filetype, 'jpg') or contains($filetype,'gif') or contains ($filetype,'tif')
 or contains($filetype,'PNG') or contains($filetype, 'JPG') or contains($filetype,'GIF') or contains ($filetype,'TIF') or   
  contains ($filetype,'jpeg'))
- then ( 'vra')
+ then ( 'image')
 else()
 
 let $file-uploaded:= upload:upload($filetype, $filesize, xmldb:encode-uri($rootcollection), xmldb:encode-uri($filename), $data, $doc-type,$workrecord)
 
-
 return
-<xml>{$tag-changed}</xml>
+<xml>{upload:determine-type($workrecord)}</xml>
 
  

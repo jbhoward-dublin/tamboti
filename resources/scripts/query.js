@@ -405,7 +405,7 @@ function refreshResourceMoveList() {
  * called when the user  clicks the add attachment button
  */
  function emptyFileList(){
-    $('#file-list').empty();
+  //  $('#file-list').empty();
     
  }
 

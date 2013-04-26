@@ -121,6 +121,7 @@ declare function bs:mods-detail-view-table($item as element(mods:mods), $current
     let $id := concat(document-uri(root($item)), '#', util:node-id($item))
     let $stored := session:get-attribute("personal-list")
     let $saved := exists($stored//*[@id = $id])
+    let $results :=  collection($config:mods-root)//mods:mods[@ID=$item/@ID]/mods:relatedItem
     return
         <tr class="pagination-item detail" xmlns="http://www.w3.org/1999/xhtml">
             <td class="pagination-number">{$currentPos}</td>
@@ -130,10 +131,34 @@ declare function bs:mods-detail-view-table($item as element(mods:mods), $current
                 </a>
                 
             </td>
+           
             
             <td class="magnify detail-type">
             { bs:get-icon($bs:THUMB_SIZE_FOR_DETAIL_VIEW, $item, $currentPos)}
             
+            </td>
+            <td>
+               <div id="image-cover-box"> 
+                {
+                   let $image-return :=
+                   for $entry in $results
+                         let $image-is-preview := $entry//mods:typeOfResource eq 'still image' and  $entry//mods:url[@access='preview']
+                            let $ print-image :=
+                            if ($image-is-preview)
+                            then 
+                            (
+                                let $image := collection($config:mods-root)//vra:image[@id=data($entry//mods:url)]
+                                return <img src="{concat(request:get-scheme(),'://',request:get-server-name(),':',request:get-server-port(),request:get-context-path(),'/rest', util:collection-name($image),"/" ,$image/@href)}"  width="200px"/>
+                            )
+                            else()
+                            
+                          return $print-image
+                   let $elements := for $element in  $item/node()
+                        return  $element
+                      
+                  return $image-return
+                  }
+                </div>
             </td>
             
             <td class="detail-xml">
@@ -183,10 +208,7 @@ declare function bs:vra-detail-view-table($item as element(vra:vra), $currentPos
             <td >
                 <div id="image-cover-box"> 
                 {
-                 
-                    
-                    
-                     for $entry in $results
+                   for $entry in $results
                     (:return <img src="{$entry/@relids}"/>:)
                     let $image := collection($config:mods-root)//vra:image[@id=$entry/@relids]
                    return <img src="{concat(request:get-scheme(),'://',request:get-server-name(),':',request:get-server-port(),request:get-context-path(),'/rest', util:collection-name($image),"/" ,$image/@href)}"  width="200px"/>

@@ -67,6 +67,31 @@
                 </td>
             </tr>
         </table>
+        <table id="attachedFilesDetails" width="800px">
+            <thead>
+                <tr>
+                    <th>Thumbnail</th>
+                    <th>Name</th>
+                    <th>Filesize</th>
+                    <th>Display Type</th>
+                    <th>Private</th>
+                    <th>Group</th>
+                    <th>All</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <span id="file-attachment-source"/>
+                        </div>
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
         <script type="text/javascript">//<![CDATA[ 
             
 angular.module('app', [], function() {})
@@ -153,6 +178,7 @@ function FileUploadCtrl(scope) {
         xhr.setRequestHeader("X-File-Folder", upload_folder)
         
         xhr.send(fd)
+        scope.files = []
     }
     
     function uploadProgress(evt) {
@@ -167,6 +193,8 @@ function FileUploadCtrl(scope) {
     
     function uploadComplete(evt) {
         /* This event is raised when the server send back a response */
+        //$('#upload-file-dialog').dialog('close');
+         //$('#file-list').text();
         alert(evt.target.responseText)
     }
     
@@ -187,14 +215,13 @@ function FileUploadCtrl(scope) {
         <html ng-app="app">
             <body ng-controller="FileUploadCtrl">
                 <div class="row">
-                    <label for="fileToUpload">Select a File to Upload</label>
-                    <br/>
-                    <input type="file" id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)"/>
+                    <!--label for="fileToUpload">Select a File to Upload</label><br /-->
+                    <!--input type="file"  id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" /-->
                 </div>
                 <div id="dropbox" class="dropbox" ng-class="dropClass">
                     <span>{{dropText}}</span>
                 </div>
-                <div ng-show="files.length">
+                <div ng-show="files.length" id="file-list">
                     <div ng-repeat="file in files.slice(0)">
                         <span>{{file.webkitRelativePath || file.name}}</span>
                         (<span ng-switch="file.size &gt; 1024*1024">
@@ -212,31 +239,8 @@ function FileUploadCtrl(scope) {
                 </div>
             </body>
         </html>
-        <table id="attachedFilesDetails">
-            <thead>
-                <tr>
-                    <th>Thumbnail</th>
-                    <th>Name</th>
-                    <th>Filesize</th>
-                    <th>Display Type</th>
-                    <th>Private</th>
-                    <th>Group</th>
-                    <th>All</th>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <span id="file-attachment-source"/>
-                        </div>
-                    </td>
-                    <td>
-        
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+       
+     
         
         
         
