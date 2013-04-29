@@ -1779,7 +1779,7 @@ declare function mods-common:get-part-and-origin($entry as element()) as xs:stri
 						        else ()
 	let $dateOriginInfo := mods-common:get-date($dateOriginInfo)
 	
-    (: NB: this should iterate over part, since there are e.g. multi-part installments of articles. :)
+    (: this iterate over part, since there are e.g. multi-part installments of articles. :)
     let $parts := $entry/mods:part
     for $part at $i in $parts
     return
