@@ -17,14 +17,16 @@
     border-image: initial;
 }
 .dropbox {
-    width: 15em;
-    height: 3em;
+    margin-top: 25px;
+    margin-left: 100px;
+    width: 300px;
+    height: 50px;
     border: 2px solid #DDD;
     border-radius: 8px;
     background-color: #FEFFEC;
     text-align: center;
     color: #BBB;
-    font-size: 2em;
+    font-size: 14px;
     font-family: Arial, sans-serif;
 }
 .dropbox span {
@@ -36,4 +38,16 @@
 }
 .dropbox.over {
     background-color: #bfb;
+}
+
+.dropbox-wrapper {
+    background-color: #FFFFFF;
+    border: 2px solid #DDDDDD;
+    border-radius: 8px 8px 8px 8px;
+    color: #BBBBBB;
+    font-family: Arial,sans-serif;
+    font-size: 2em;
+    height: 100px;
+    text-align: center;
+    width: 800px;
 }

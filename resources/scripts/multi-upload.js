@@ -14,11 +14,8 @@
 			xhr,
 			fileInfo,
 			//heade definitions
-		 parent_record,
-		 upload_folder;
-		
-			
-		
+		parent_record,
+		upload_folder;
 		div.position='absolute';
 		li.appendChild(div);
 		

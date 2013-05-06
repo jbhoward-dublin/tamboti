@@ -205,7 +205,7 @@ declare function bs:vra-detail-view-table($item as element(vra:vra), $currentPos
                     <img title="{if ($saved) then 'Remove Record from My List' else 'Save Record to My List'}" src="theme/images/{if ($saved) then 'disk_gew.gif' else 'disk.gif'}" class="{if ($saved) then 'stored' else ''}"/>
                 </a>
             </td>
-            <td >
+            <td style="vertical-align:top;">
                 <div id="image-cover-box"> 
                 {
                    for $entry in $results

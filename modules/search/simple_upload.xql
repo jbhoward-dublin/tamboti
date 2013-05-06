@@ -1,7 +1,9 @@
 xquery version "3.0";
-(: author dulip withanage :)
-declare namespace upload = "http://exist-db.org/eXide/upload";
+(: author dulip withanage 
 import module namespace uu="http://exist-db.org/mods/uri-util" at "uri-util.xqm";
+:)
+declare namespace upload = "http://exist-db.org/eXide/upload";
+
 declare namespace functx = "http://www.functx.com";
 declare namespace vra="http://www.vraweb.org/vracore4.htm";
 declare namespace mods="http://www.loc.gov/mods/v3";
@@ -14,7 +16,13 @@ declare variable $usercol := xs:string(xmldb:get-current-user());
 declare variable $newcol := concat(xs:string($rootcollection),'/' , $usercol,'/');
 declare variable $user := 'admin';
 declare variable $userpass := '';
+declare variable $filefolder := xmldb:encode(request:get-header('X-File-Folder'));
+declare variable $workrecord := xmldb:encode(request:get-header('X-File-Parent'));
+declare variable $parentdoc_path := concat($filefolder,'/',$workrecord,'.xml');
+(:
 declare variable $myuuid := concat('i_',util:uuid());
+:)
+
 
 
 
@@ -96,7 +104,8 @@ let $digital-object :=
 
 
 declare function upload:upload( $filetype , $filesize, $rootcollection, $filename, $data, $doc-type, $workrecord) {
-    
+     let $myuuid := concat('i_',util:uuid())
+     let $tag-changed := upload:add-tag-to-parent-doc($parentdoc_path, upload:determine-type($workrecord), $myuuid)
     
     let $upload := 
         system:as-user($user, $userpass, 
@@ -129,7 +138,7 @@ declare function upload:upload( $filetype , $filesize, $rootcollection, $filenam
         return $upload
  };
  
- declare function upload:add-tag-to-parent-doc($parentdoc_path , $parent_type as xs:string){
+ declare function upload:add-tag-to-parent-doc($parentdoc_path , $parent_type as xs:string, $myuuid){
  
   let $parentdoc := doc($parentdoc_path)
  let $add :=
@@ -166,6 +175,8 @@ declare function upload:upload( $filetype , $filesize, $rootcollection, $filenam
     else  ()
 return $add
 };
+
+
  
  
   
@@ -196,32 +207,43 @@ let $filetype := xmldb:encode(request:get-header('Content-Type'))
 (:
 let $data := request:get-data()
 :)
+
+
+
+
+let $types := ('png', 'jpg', 'gif', 'tiff', 'PNG', 'JPG', 'jpeg', 'tif', 'TIF')
+
 let $uploadedFile := 'uploadedFile'
 let $data := request:get-uploaded-file-data($uploadedFile)
-
 let $filename := request:get-uploaded-file-name($uploadedFile)
 let $filesize := request:get-uploaded-file-size($uploadedFile)
-let $filefolder := xmldb:encode(request:get-header('X-File-Folder'))
-let $workrecord := xmldb:encode(request:get-header('X-File-Parent'))
-let $filetype := functx:substring-after-last($filename,'.')
-
-let $parentdoc_path := concat($filefolder,'/',$workrecord,'.xml')
-let $tag-changed := upload:add-tag-to-parent-doc($parentdoc_path, upload:determine-type($workrecord))
 
 
+let $result := for $x in (1 to count($data))
+    let $filetype := functx:substring-after-last($filename[$x],'.')
+    let $doc-type := if (contains($filetype,'png') or contains($filetype, 'jpg') or contains($filetype,'gif') or contains ($filetype,'tif')
+                    or contains($filetype,'PNG') or contains($filetype, 'JPG') or contains($filetype,'GIF') or contains ($filetype,'TIF') or   
+                     contains ($filetype,'jpeg'))
+                    then ( 'image')
+                        else()
+    let $upload := upload:upload($filetype, $filesize[$x], xmldb:encode-uri($rootcollection), xmldb:encode-uri($filename[$x]), $data[$x], $doc-type,$workrecord)
+    return $upload    
+(:
 let $mydata := upload:list-data()
-
+:)
 
 (: type control:)
-let $doc-type := if (contains($filetype,'png') or contains($filetype, 'jpg') or contains($filetype,'gif') or contains ($filetype,'tif')
-or contains($filetype,'PNG') or contains($filetype, 'JPG') or contains($filetype,'GIF') or contains ($filetype,'TIF') or   
- contains ($filetype,'jpeg'))
- then ( 'image')
-else()
+(:
 
-let $file-uploaded:= upload:upload($filetype, $filesize, xmldb:encode-uri($rootcollection), xmldb:encode-uri($filename), $data, $doc-type,$workrecord)
+:)
+(:
 
+:)
+(:
+
+:)
 return
-<xml>{upload:determine-type($workrecord)}</xml>
+<xml>{$result} 
+</xml>
 
  
