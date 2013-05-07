@@ -10,6 +10,9 @@ import module namespace config="http://exist-db.org/mods/config" at "../config.x
 import module namespace security="http://exist-db.org/mods/security" at "security.xqm";
 import module namespace sharing="http://exist-db.org/mods/sharing" at "sharing.xqm";
 import module namespace uu="http://exist-db.org/mods/uri-util" at "uri-util.xqm";
+declare namespace vra="http://www.vraweb.org/vracore4.htm";
+declare namespace mods="http://www.loc.gov/mods/v3";
+
 
 declare namespace exist = "http://exist.sourceforge.net/NS/exist";
 declare namespace group = "http://commons/sharing/group";
@@ -39,15 +42,50 @@ declare function local:get-sharing($collection-path as xs:string) as element(aaD
             }</aaData>
 };
 
+
+declare function local:get-attached-files ($file as xs:string , $type as xs:string) as element(aaData){
+let $results :=  collection($config:mods-root)//mods:mods[@ID=$file]/mods:relatedItem
+
+return <aaData>
+        {
+        for $entry in $results 
+            let $image-is-preview := $entry//mods:typeOfResource eq 'still image' and  $entry//mods:url[@access='preview']
+            return 
+            if ($image-is-preview) then      element json:value 
+            {
+                let $image_vra := collection($config:mods-root)//vra:image[@id=data($entry//mods:url)]
+                return <json:value>{$image_vra/vra:titleSet/vra:title}</json:value>
+            }
+            else()
+        }
+    </aaData>
+        
+};
+
 declare function local:empty() {
     <aaData json:array="true"/>
 };
 
+ 
 <json:value>
     {
     if(request:get-parameter("collection",()))then
+    (
         local:get-sharing(uu:escape-collection-path(request:get-parameter("collection",())))
+    )
+    else if(request:get-parameter("file",())) then (
+        if(request:get-parameter("type",()))
+        then(
+        
+        local:get-attached-files(request:get-parameter("file",()), request:get-parameter("type",()))
+        )
+        else (
+        local:empty()
+        )
+        
+    )
     else
         local:empty()
     }
 </json:value>
+

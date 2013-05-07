@@ -20,7 +20,7 @@ import module namespace security="http://exist-db.org/mods/security" at "../../.
 import module namespace sharing="http://exist-db.org/mods/sharing" at "../../../modules/search/sharing.xqm";
 import module namespace clean="http://exist-db.org/xquery/mods/cleanup" at "../../../modules/search/cleanup.xql";
 import module namespace kwic="http://exist-db.org/xquery/kwic" at "resource:org/exist/xquery/lib/kwic.xql";
-import module namespace mods-common="http://exist-db.org/mods/common" at "mods-common.xql";
+import module namespace mods-common="http://exist-db.org/mods/common" at "mods-common.xql"; 
 
 declare namespace mods="http://www.loc.gov/mods/v3";
 declare namespace vra = "http://www.vraweb.org/vracore4.htm";
@@ -143,7 +143,7 @@ declare function bs:mods-detail-view-table($item as element(mods:mods), $current
                    let $image-return :=
                    for $entry in $results
                          let $image-is-preview := $entry//mods:typeOfResource eq 'still image' and  $entry//mods:url[@access='preview']
-                            let $ print-image :=
+                            let $print-image :=
                             if ($image-is-preview)
                             then 
                             (

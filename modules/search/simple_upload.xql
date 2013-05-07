@@ -219,6 +219,7 @@ let $filename := request:get-uploaded-file-name($uploadedFile)
 let $filesize := request:get-uploaded-file-size($uploadedFile)
 
 
+
 let $result := for $x in (1 to count($data))
     let $filetype := functx:substring-after-last($filename[$x],'.')
     let $doc-type := if (contains($filetype,'png') or contains($filetype, 'jpg') or contains($filetype,'gif') or contains ($filetype,'tif')
