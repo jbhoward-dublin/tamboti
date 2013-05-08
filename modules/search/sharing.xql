@@ -32,7 +32,6 @@ declare function local:get-sharing($collection-path as xs:string) as element(aaD
                         if(xs:integer($acl/@entries) eq 1) then
                             attribute json:array { true() }
                         else(),
-                        
                         <json:value>{text{$ace/@target}}</json:value>,
                         <json:value>{text{$ace/@who}}</json:value>,
                         <json:value>{text{$ace/@access_type}}</json:value>,
@@ -42,24 +41,23 @@ declare function local:get-sharing($collection-path as xs:string) as element(aaD
             }</aaData>
 };
 
+declare function local:get-attached-files ($file as xs:string , $type as xs:string) {
 
-declare function local:get-attached-files ($file as xs:string , $type as xs:string) as element(aaData){
 let $results :=  collection($config:mods-root)//mods:mods[@ID=$file]/mods:relatedItem
-
 return <aaData>
         {
         for $entry in $results 
             let $image-is-preview := $entry//mods:typeOfResource eq 'still image' and  $entry//mods:url[@access='preview']
             return 
-            if ($image-is-preview) then      element json:value 
-            {
+            if ($image-is-preview) then    element json:value 
+                {
                 let $image_vra := collection($config:mods-root)//vra:image[@id=data($entry//mods:url)]
-                return <json:value>{$image_vra/vra:titleSet/vra:title}</json:value>
-            }
+                return <json:value>{$image_vra//vra:title}</json:value>
+                }
             else()
         }
     </aaData>
-        
+      
 };
 
 declare function local:empty() {
@@ -78,6 +76,7 @@ declare function local:empty() {
         then(
         
         local:get-attached-files(request:get-parameter("file",()), request:get-parameter("type",()))
+        
         )
         else (
         local:empty()
