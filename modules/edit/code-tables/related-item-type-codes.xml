@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <code-table xml:id="related-item-type-code">
     <code-table-name>related-item-type-code</code-table-name>
     <status>finished</status>
@@ -66,11 +65,23 @@
         </item>
         <item type="added">
             <label>Is a Commentary On</label>
-            <value>commentaryOn</value>
+            <value>isCommentaryOn</value>
         </item>
         <item type="added">
             <label>Has Commentary In</label>
-            <value>commentedOnIn</value>
+            <value>hasCommentaryIn</value>
+        </item>
+        <item type="added">
+            <label>Is a Translation Of</label>
+            <value>isTranslationOf</value>
+        </item>
+        <item type="added">
+            <label>Has Translation In</label>
+            <value>hasTranslationIn</value>
+        </item>
+        <item type="added">
+            <label>Has Other Relation To</label>
+            <value>hasOtherRelationTo</value>
         </item>
     </items>
 </code-table>
