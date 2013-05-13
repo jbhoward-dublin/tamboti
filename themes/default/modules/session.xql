@@ -137,7 +137,7 @@ declare function bs:mods-detail-view-table($item as element(mods:mods), $current
             { bs:get-icon($bs:THUMB_SIZE_FOR_DETAIL_VIEW, $item, $currentPos)}
             
             </td>
-            <td>
+            <td style="vertical-align:top;">
                <div id="image-cover-box"> 
                 {
                    let $image-return :=

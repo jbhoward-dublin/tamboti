@@ -73,6 +73,8 @@ $(document).ready(function(){
     hideCollectionActionButtons();
     
     prepareCollectionSharingDetails();
+    //attachment
+    prepareAttachmentSharingDetails();
     
     //add new user to share event
     $('#add-new-user-to-share-button').click(function(){
@@ -825,9 +827,58 @@ function prepareCollectionSharingDetails() {
     });
 };
 
+function prepareAttachmentSharingDetails() {
+    //add reloadAjax function
+    $.fn.dataTableExt.oApi.fnReloadAjax = attachedDataTableReloadAjax;
+    
+
+    //initialise with initial data
+    $('#attachedFilesDetails').dataTable({
+        "bProcessing": true,
+        "sPaginationType": "full_numbers",
+        "fnRowCallback": attachedDetailsRowCallback,
+        "sAjaxSource": "sharing.xql"
+    });
+};
+
+
+function attachedDetailsRowCallback(nRow, aData, iDisplayIndex) {
+    //determine user or group icon for first column
+        var img_src=aData[0];
+        $('td:eq(0)', nRow).html('<img alt="User Icon" src="'+img_src+'" width="100px"/>');
+        
+    /*else if(aData[0] == "GROUP") {
+        $('td:eq(0)', nRow).html('<img alt="Group Icon" src="theme/images/group.png"/>');
+    }
+    */
+        
+    //determine writeable for fourth column
+    //var isWriteable = aData[3].indexOf("w") > -1;
+    //add the checkbox, with action to perform an update on the server
+    //var inpWriteableId = 'inpWriteable_' + iDisplayIndex;
+    //$('td:eq(3)', nRow).html('<input id="' + inpWriteableId + '" type="checkbox" value="true"' + (isWriteable ? ' checked="checked"' : '') + ' onclick="javascript: setAceWriteable(this,\'' + getCurrentCollection() + '\',' + iDisplayIndex + ', this.checked);"/>');
+    
+    //add a delete button, with action to perform an update on the server
+    //var imgDeleteId = 'imgDelete_' + iDisplayIndex;
+    //$('td:eq(4)', nRow).html('<img id="' + imgDeleteId + '" alt="Delete Icon" src="theme/images/cross.png" onclick="javascript: removeAce(\'' + getCurrentCollection() + '\',' + iDisplayIndex + ');"/>');
+    //add jQuery cick action to image to perform an update on the server
+    
+    return nRow;
+}
+
+
+
+
+
 //called each time the collection/folder sharing dialog is opened
 function updateSharingDialog() {
    $('#collectionSharingDetails').dataTable().fnReloadAjax("sharing.xql?collection=" + escape(getCurrentCollection()));
+   
+}
+
+function updateAttachmentDialog() {
+var uuid = $('#upload-resource-id').html()
+$('#attachedFilesDetails').dataTable().fnReloadAjax("sharing.xql?file=" + uuid+'&type=mods');
 }
 
 //custom fnReloadAjax for sharing dataTable
@@ -867,6 +918,44 @@ function dataTableReloadAjax(oSettings, sNewSource, fnCallback, bStandingRedraw)
         }
     }, oSettings);
 }
+
+function attachedDataTableReloadAjax(oSettings, sNewSource, fnCallback, bStandingRedraw) {
+    if(typeof sNewSource != 'undefined' && sNewSource != null) {
+        oSettings.sAjaxSource = sNewSource;
+    }
+
+    this.oApi._fnProcessingDisplay(oSettings, true);
+
+    var that = this;
+    var iStart = oSettings._iDisplayStart;
+
+    oSettings.fnServerData(oSettings.sAjaxSource, [], function(json) {
+
+        /* Clear the old information from the table */
+        that.oApi._fnClearTable(oSettings);
+        
+        /* Got the data - add it to the table */
+        for(var i = 0 ; i < json.aaData.length; i++) {
+            that.oApi._fnAddData(oSettings, json.aaData[i]);
+        }
+
+        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+        that.fnDraw();
+        
+        if(typeof bStandingRedraw != 'undefined' && bStandingRedraw === true) {
+			oSettings._iDisplayStart = iStart;
+			that.fnDraw(false);
+		}
+        
+        that.oApi._fnProcessingDisplay(oSettings, false);
+
+        /* Callback user function - for event handlers etc */
+        if(typeof fnCallback == 'function' && fnCallback != null){
+            fnCallback(oSettings);
+        }
+    }, oSettings);
+}
+
 
 //custom rendered for each row of the sharing dataTable
 function collectionSharingDetailsRowCallback(nRow, aData, iDisplayIndex) {

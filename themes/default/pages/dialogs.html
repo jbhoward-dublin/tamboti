@@ -56,7 +56,7 @@
             </div>
         </form>
     </jquery:dialog>
-    <jquery:dialog id="upload-file-dialog" class="upload-file-style" modal="true" title="File attachments" trigger="#upload-file-to-resource" width="900">
+    <jquery:dialog id="upload-file-dialog" class="upload-file-style" modal="true" title="File attachments" trigger="#upload-file-to-resource" width="900" onOpen="updateAttachmentDialog">
         <table>
             <tr>
                 <td>
@@ -69,28 +69,12 @@
         </table>
         <table id="attachedFilesDetails" width="800px">
             <thead>
-                <tr>
-                    <th>Thumbnail</th>
+                <tr align="left">
+                    <th/>
                     <th>Name</th>
-                    <th>Filesize</th>
-                    <th>Display Type</th>
-                    <th>Private</th>
-                    <th>Group</th>
-                    <th>All</th>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <span id="file-attachment-source"/>
-                        </div>
-                    </td>
-                    <td>
-                        
-                    </td>
+                    <th>Modfied</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
         </table>
         <script type="text/javascript">//<![CDATA[ 
             

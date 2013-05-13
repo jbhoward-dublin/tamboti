@@ -42,22 +42,47 @@ declare function local:get-sharing($collection-path as xs:string) as element(aaD
 };
 
 declare function local:get-attached-files ($file as xs:string , $type as xs:string) {
+(:
+                <json:value>{$image_vra//vra:title/text()}</json:value>
+                <json:value>{xmldb:last-modified($image_vra/@refid, $image_vra/@href)}</json:value>
+                 if ($image-is-preview) then 
+                attribute json:array { true()}
+             else(),
+             if ($image-is-preview) then
+:)
 
+let $json-true := attribute json:array { true() }
 let $results :=  collection($config:mods-root)//mods:mods[@ID=$file]/mods:relatedItem
-return <aaData>
-        {
+return
         for $entry in $results 
             let $image-is-preview := $entry//mods:typeOfResource eq 'still image' and  $entry//mods:url[@access='preview']
-            return 
-            if ($image-is-preview) then    element json:value 
-                {
-                let $image_vra := collection($config:mods-root)//vra:image[@id=data($entry//mods:url)]
-                return <json:value>{$image_vra//vra:title}</json:value>
-                }
-            else()
-        }
-    </aaData>
-      
+            let $image_vra := collection($config:mods-root)//vra:image[@id=data($entry//mods:url)]
+            
+            return   
+                 if ($image-is-preview) then
+                 let $modified := xmldb:last-modified($image_vra/@refid, $image_vra/@href)
+                 return
+            <aaData json:array="true">
+            <json:value json:array="true">{concat('../../../../rest',$image_vra/@refid, $image_vra/@href)}</json:value>
+            <json:value json:array="true">{xmldb:decode(($image_vra//vra:title/text()))}</json:value>
+            <json:value json:array="true">{
+            concat(
+            year-from-dateTime($modified),'-',month-from-dateTime($modified),'-',day-from-dateTime($modified), 
+            ' ',
+            hours-from-dateTime($modified), ' : ',minutes-from-dateTime($modified) 
+            )
+            
+            }</json:value>
+            
+             </aaData>
+             else()
+                
+            
+             
+            
+             
+            
+                
 };
 
 declare function local:empty() {
