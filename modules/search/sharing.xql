@@ -40,16 +40,8 @@ declare function local:get-sharing($collection-path as xs:string) as element(aaD
                     }
             }</aaData>
 };
-
 declare function local:get-attached-files ($file as xs:string , $type as xs:string) {
-(:
-                <json:value>{$image_vra//vra:title/text()}</json:value>
-                <json:value>{xmldb:last-modified($image_vra/@refid, $image_vra/@href)}</json:value>
-                 if ($image-is-preview) then 
-                attribute json:array { true()}
-             else(),
-             if ($image-is-preview) then
-:)
+
 
 let $json-true := attribute json:array { true() }
 let $results :=  collection($config:mods-root)//mods:mods[@ID=$file]/mods:relatedItem
@@ -75,15 +67,11 @@ return
             }</json:value>
             
              </aaData>
-             else()
-                
+             else(
             
-             
-            
-             
-            
-                
+             )
 };
+
 
 declare function local:empty() {
     <aaData json:array="true"/>

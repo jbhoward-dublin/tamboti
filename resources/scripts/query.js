@@ -844,8 +844,8 @@ function prepareAttachmentSharingDetails() {
 
 function attachedDetailsRowCallback(nRow, aData, iDisplayIndex) {
     //determine user or group icon for first column
-        var img_src=aData[0];
-        $('td:eq(0)', nRow).html('<img alt="User Icon" src="'+img_src+'" width="100px"/>');
+       var img_src=aData[0];
+       $('td:eq(0)', nRow).html('<img alt="User Icon" src="'+img_src+'" width="100px"/>');
         
     /*else if(aData[0] == "GROUP") {
         $('td:eq(0)', nRow).html('<img alt="Group Icon" src="theme/images/group.png"/>');
@@ -898,9 +898,12 @@ function dataTableReloadAjax(oSettings, sNewSource, fnCallback, bStandingRedraw)
         that.oApi._fnClearTable(oSettings);
         
         /* Got the data - add it to the table */
+        
         for(var i = 0 ; i < json.aaData.length; i++) {
             that.oApi._fnAddData(oSettings, json.aaData[i]);
         }
+        
+        
 
         oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
         that.fnDraw();
@@ -935,9 +938,12 @@ function attachedDataTableReloadAjax(oSettings, sNewSource, fnCallback, bStandin
         that.oApi._fnClearTable(oSettings);
         
         /* Got the data - add it to the table */
-        for(var i = 0 ; i < json.aaData.length; i++) {
-            that.oApi._fnAddData(oSettings, json.aaData[i]);
+        if (json){
+            for(var i = 0 ; i < json.aaData.length; i++) {
+                that.oApi._fnAddData(oSettings, json.aaData[i]);
+            }
         }
+        
 
         oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
         that.fnDraw();
